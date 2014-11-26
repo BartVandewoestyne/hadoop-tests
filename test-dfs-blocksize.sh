@@ -2,6 +2,8 @@
 #
 # Test the influence of the dfs.blocksize configuration parameter on the
 # write and read results of TestDFSIO.  Each blocksize is tested 3 times.
+#
+# Note that we are using the default dfs.replication here!
 
 OUTPUTFILE=~/TestDFSIO_results_dfs_blocksize.log
 
@@ -12,8 +14,8 @@ for blocksize in 67108864 134217728 268435456 536870912
 do
   for i in 1 2 3
   do
-    hadoop jar hadoop-*test*.jar TestDFSIO -D test.build.data=/user/bart/TestDFSIO -D dfs.blocksize=$blocksize -write -nrFiles 10 -fileSize 1000 -resFile $OUTPUTFILE
-    hadoop jar hadoop-*test*.jar TestDFSIO -D test.build.data=/user/bart/TestDFSIO -D dfs.blocksize=$blocksize  -read -nrFiles 10 -fileSize 1000 -resFile $OUTPUTFILE
+    hadoop jar hadoop-*test*.jar TestDFSIO -D test.build.data=/user/bart/TestDFSIO -D dfs.blocksize=$blocksize -write -nrFiles 10 -fileSize 1GB -resFile $OUTPUTFILE
+    hadoop jar hadoop-*test*.jar TestDFSIO -D test.build.data=/user/bart/TestDFSIO -D dfs.blocksize=$blocksize  -read -nrFiles 10 -fileSize 1GB -resFile $OUTPUTFILE
     hadoop jar hadoop-*test*.jar TestDFSIO -D test.build.data=/user/bart/TestDFSIO -clean
   done
 done
